@@ -1,0 +1,22 @@
+# FastAPI & Web server
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Auth
+python-jose[cryptography]
+passlib[bcrypt]
+
+# WebSockets
+websockets
+aioredis
+
+# Pydantic is already a FastAPI dependency but listed here explicitly
+pydantic
+
+# For environment variables (optional but useful)
+python-dotenv
