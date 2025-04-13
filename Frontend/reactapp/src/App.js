@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './components/privateroute'; // Note: Capitalized component name
+import Home from './pages/home';
+import Login from './pages/login';
+import Dashboard from './pages/dashboard';
+import '/Users/sanjayanumandla/Desktop/Projects/VC-Coding-App/Frontend/reactapp/src/styles/pages.css'; // Import CSS styles
 
-function App() {
+// Default export (remove curly braces from import in index.js)
+function App() 
+{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected Routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } 
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default App;  // This is crucial
