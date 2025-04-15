@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages.css';
 
-function Home() {
+function Home() 
+{
   const navigate = useNavigate();
 
   return (
@@ -12,9 +13,23 @@ function Home() {
         <p className="hero-subtitle">Collaborative coding environment for teams</p>
         <button 
           className="cta-button"
-          onClick={() => navigate('/login')}
-        >
+          onClick={() => navigate('/login')} >
           Get Started
+          <svg 
+          width="20" 
+          height="20" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor"
+          style={{ marginLeft: '8px' }}
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M14 5l7 7m0 0l-7 7m7-7H3" 
+          />
+        </svg>
         </button>
       </section>
 
