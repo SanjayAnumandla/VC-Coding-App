@@ -7,7 +7,7 @@ export default function Login()
     <div className="page login-page">
       <div className="login-card">
         <div className="login-header">
-          <h1>Welcome Back</h1>
+          <h1>Login</h1>
           <p>Please enter your details</p>
         </div>
         
