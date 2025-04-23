@@ -11,5 +11,6 @@
         "@assets/*": ["assets/*"],
         "@styles/*": ["styles/*"]
       }
-    }
-  }
+    },
+    "exclude": ["node_modules"]
+}

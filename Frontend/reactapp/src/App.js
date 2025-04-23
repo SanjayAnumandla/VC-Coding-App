@@ -1,33 +1,36 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PrivateRoute from './components/privateroute'; // Note: Capitalized component name
+import PrivateRoute from './components/privateroute';
+import Navigation from './components/navigation';
 import Home from './pages/home';
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
-import '/Users/sanjayanumandla/Desktop/Projects/VC-Coding-App/Frontend/reactapp/src/styles/pages.css'; // Import CSS styles
 
-// Default export (remove curly braces from import in index.js)
-function App() 
-{
+// CSS Imports (verified working paths)
+import './styles/base.css';
+import './styles/variables.css';
+
+function App() {
   return (
     <BrowserRouter>
+    <Navigation />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Routes */}
-        <Route 
-          path="/dashboard" 
+        {/* Protected Route */}
+        <Route
+          path="/dashboard"
           element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
-          } 
+          }
         />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App;  // This is crucial
+export default App;

@@ -1,14 +1,13 @@
-import React from 'react';  // Add this import
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
-  const location = useLocation();
+  const routerLocation = useLocation();
 
   if (!currentUser) {
-    // Redirect to login page, saving the current location
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: routerLocation }} replace />;
   }
 
   return children;

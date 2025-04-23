@@ -1,0 +1,148 @@
+@import './variables.css';
+
+.page {
+  background: var(--gradient-space);
+  color: var(--moonlight);
+  padding-top: 80px; /* Should match navbar height */
+  min-height: 100vh;
+}
+
+.hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,245,255,0.1) 0%, rgba(0,0,0,0) 70%);
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  background: var(--gradient-tech);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--stardust);
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.ctaButton {
+  background: var(--plasma);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 0, 110, 0.5);
+}
+
+.ctaButton svg {
+  transition: transform 0.3s ease;
+  margin-left: 0.5rem;
+}
+
+.ctaButton:hover svg {
+  transform: translateX(5px);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: rgba(26, 26, 46, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(157, 78, 221, 0.2);
+  border-color: rgba(157, 78, 221, 0.5);
+}
+
+.card h3 {
+  color: var(--electric-blue);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.codePreview {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 3px solid var(--neon-purple);
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-top: 1.5rem;
+  overflow-x: auto;
+}
+
+.keyword { color: var(--syntax-pink); font-weight: bold; }
+.string { color: var(--syntax-lavender); }
+.comment { color: var(--syntax-comment); font-style: italic; }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1rem;
+  }
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding-top: 60px; /* Slightly less on mobile */
+  }
+  
+  /* Optional: add a subtle blur when menu is open */
+  .navbar-open .page {
+    filter: blur(2px);
+    pointer-events: none;
+  }
+}
