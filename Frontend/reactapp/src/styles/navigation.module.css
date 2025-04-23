@@ -144,5 +144,19 @@
   }
 }
 
-/* Remove the forced mobile styles for all screens */
+/* Login page specific styles */
+.navbar.loginNav {
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
+}
+
+.navbar.loginNav .container {
+  justify-content: center;
+}
+
+.navbar.loginNav .hamburger,
+.navbar.loginNav .links {
+  display: none !important;
+}/* Remove the forced mobile styles for all screens */
 /* @media (min-width: 1px) rule removed */
