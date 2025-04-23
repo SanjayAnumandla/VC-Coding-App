@@ -1,0 +1,41 @@
+:root {
+    /* Core Brand Colors */
+    --electric-blue: #00f5ff;
+    --neon-purple: #9d4edd;
+    --dark-space: #10002b;
+    --cosmic-gray: #1a1a2e;
+    
+    /* UI Elements */
+    --moonlight: #e2e8f0;
+    --stardust: #a5b4fc;
+    --plasma: #ff006e;
+    
+    /* Code Editor Inspired */
+    --syntax-teal: #64f5d2;
+    --syntax-pink: #f72585;
+    --syntax-lavender: #c77dff;
+    --syntax-comment: #6d6875;
+    
+    /* Gradients */
+    --gradient-space: linear-gradient(135deg, #10002b 0%, #3c096c 100%);
+    --gradient-tech: linear-gradient(90deg, #00f5ff 0%, #9d4edd 100%);
+    
+    /* Aliases */
+    --primary: var(--electric-blue);
+    --primary-hover: #00d9e6;
+    --secondary: var(--neon-purple);
+    --text: var(--moonlight);
+    --text-light: var(--stardust);
+    --border: rgba(157, 78, 221, 0.3);
+    --bg-light: var(--cosmic-gray);
+    --card-bg: rgba(26, 26, 46, 0.8);
+  }
+  
+  /* Dark/Light mode example (optional) */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --moonlight: #1a1a2e;
+      --dark-space: #f8f9fa;
+      --border: rgba(0, 0, 0, 0.1);
+    }
+  }
