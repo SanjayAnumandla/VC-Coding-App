@@ -7,8 +7,8 @@ const Navigation = () => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -17,96 +17,90 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mock user authentication status
   useEffect(() => {
-    // Replace with actual auth check
+    // Check if user is authenticated (replace with your actual auth check)
     const authToken = localStorage.getItem('authToken');
-    if (authToken) {
-      setUser({
-        name: 'You',
-        avatar: 'YO',
-        isOnline: true
-      });
-    }
+    setUser(authToken ? { name: 'User', avatar: 'U', isOnline: true } : null);
   }, [location]);
 
   const handleLogout = () => {
-    // Replace with actual logout logic
     localStorage.removeItem('authToken');
     setUser(null);
     navigate('/login');
   };
 
   const isActive = (path) => location.pathname === path;
-  const isDashboard = location.pathname.startsWith('/dashboard');
 
-  // Return null early for login page after all hooks
+  // Don't render on login page
   if (location.pathname === '/login') {
     return null;
   }
 
   return (
-    <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''} ${isDashboard ? styles.dashboardNav : ''}`}>
+    <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
-          CodeCollab
+          <span className={styles.logoPrimary}>Code</span>
+          <span className={styles.logoSecondary}>Collab</span>
         </Link>
         
         <div className={styles.links}>
-          {!user ? (
+          {user ? (
+            // Authenticated user links
             <>
-              <Link 
-                to="/" 
-                className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
-              >
-                Home
-              </Link>
-              <Link 
-                to="/login" 
-                className={`${styles.navLink} ${isActive('/login') ? styles.active : ''}`}
-              >
-                Login
-              </Link>
-            </>
-          ) : (
-            <>
-              {!isDashboard && (
-                <Link 
-                  to="/" 
-                  className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
-                >
-                  Home
-                </Link>
-              )}
-              <Link 
-                to="/dashboard" 
-                className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}
-              >
+              <Link to="/dashboard" className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}>
                 Dashboard
               </Link>
-              <Link 
-                to="/realtime" 
-                className={`${styles.navLink} ${isActive('/realtime') ? styles.active : ''}`}
-              >
-                Code Editor
+              <Link to="/editor" className={`${styles.navLink} ${isActive('/editor') ? styles.active : ''}`}>
+                Editor
+              </Link>
+              <Link to="/projects" className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`}>
+                Projects
+              </Link>
+              
+              <div className={styles.userDropdown} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <div className={styles.userBadge}>
+                  <span className={`${styles.userAvatar} ${user.isOnline ? styles.online : ''}`}>
+                    {user.avatar}
+                  </span>
+                  <span className={styles.userName}>{user.name}</span>
+                  <span className={styles.dropdownIcon}>{isMenuOpen ? '▲' : '▼'}</span>
+                </div>
+                
+                {isMenuOpen && (
+                  <div className={styles.dropdownMenu}>
+                    <Link to="/profile" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>
+                      Profile
+                    </Link>
+                    <Link to="/settings" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>
+                      Settings
+                    </Link>
+                    <div className={styles.divider} />
+                    <button className={styles.dropdownItem} onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            // Non-authenticated links
+            <>
+              <Link to="/" className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}>
+                Home
+              </Link>
+              <Link to="/features" className={styles.navLink}>
+                Features
+              </Link>
+              <Link to="/contact" className={styles.navLink}>
+                Contact
+              </Link>
+              <Link to="/login" className={styles.loginButton}>
+                Login
               </Link>
             </>
           )}
         </div>
-        
-        {user && (
-          <div className={styles.userSection}>
-            <div className={styles.userBadge}>
-              <span className={`${styles.userAvatar} ${user.isOnline ? styles.online : ''}`}>
-                {user.avatar}
-              </span>
-              <span className={styles.userName}>{user.name}</span>
-              <button onClick={handleLogout} className={styles.logoutButton}>
-                Sign Out
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
