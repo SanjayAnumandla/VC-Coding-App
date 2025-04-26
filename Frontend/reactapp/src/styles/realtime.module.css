@@ -1,0 +1,242 @@
+/* realtime.module.css */
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--gradient-space);
+  color: var(--moonlight);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding-top: 70px; /* Match navbar height */
+}
+
+.editorWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .editorWrapper {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}
+
+.editorSection, 
+.outputSection {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.editorHeader, 
+.outputHeader {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editorHeader h3,
+.outputHeader h3 {
+  color: var(--electric-blue);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.editorActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.runButton {
+  background: var(--neon-purple);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.runButton:hover {
+  background: var(--plasma);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(157, 78, 221, 0.3);
+}
+
+.codeInput {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  padding: 1.25rem;
+  color: var(--moonlight);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  min-height: 300px;
+}
+
+.outputContent {
+  flex: 1;
+  padding: 1.25rem;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.25);
+  white-space: pre-wrap;
+  font-family: 'Fira Code', monospace;
+  color: var(--stardust);
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .editorContainer {
+    padding-top: 60px;
+  }
+  
+  .editorHeader,
+  .outputHeader {
+    padding: 0.75rem;
+  }
+  
+  .editorActions {
+    gap: 0.5rem;
+  }
+  
+  .runButton {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .codeInput,
+  .outputContent {
+    padding: 1rem;
+  }
+}
+
+/* Language Dropdown Styles */
+.languageDropdownWrapper {
+  position: relative;
+  margin-right: 0.75rem;
+}
+
+.languageDropdownButton {
+  background: rgba(157, 78, 221, 0.1);
+  color: var(--moonlight);
+  border: 1px solid var(--neon-purple);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.languageDropdownButton:hover {
+  background: rgba(157, 78, 221, 0.2);
+}
+
+.dropdownIcon {
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+}
+
+.languageDropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  min-width: 120px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.languageOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: var(--moonlight);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.languageOption:hover {
+  background: rgba(157, 78, 221, 0.1);
+  color: var(--electric-blue);
+}
+
+.languageOption.selected {
+  color: var(--electric-blue);
+  font-weight: 500;
+  background: rgba(157, 78, 221, 0.1);
+}
+
+/* Run Button */
+.runButton {
+  background: var(--neon-purple);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.runButton:hover {
+  background: var(--plasma);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(157, 78, 221, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .editorActions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .languageDropdownWrapper {
+    margin-right: 0;
+    width: 100%;
+  }
+  
+  .languageDropdownButton {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .languageDropdownMenu {
+    width: 100%;
+  }
+  
+  .runButton {
+    width: 100%;
+  }
+}

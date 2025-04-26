@@ -146,3 +146,54 @@
     pointer-events: none;
   }
 }
+
+.cursorVisible {
+  opacity: 1;
+  animation: blink 1s step-end infinite;
+}
+
+.cursorHidden {
+  opacity: 0;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.codePreview[contentEditable="true"] {
+  outline: 2px dashed rgba(0, 245, 255, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 120px;
+}
+
+.codePreview[contentEditable="true"]:focus {
+  outline: 2px solid var(--electric-blue);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.subtitle {
+  position: relative;
+}
+
+.subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--electric-blue), transparent);
+  opacity: 0.5;
+}
+
+/* Add transition to cards */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}

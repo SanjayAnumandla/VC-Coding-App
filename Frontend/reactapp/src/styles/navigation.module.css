@@ -1,23 +1,20 @@
-/* Base Navbar Styles */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: var(--card-bg);
+  background: rgba(26, 26, 46, 0.8);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar.scrolled {
+  background: rgba(26, 26, 46, 0.95);
+  padding: 0.5rem 2rem;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-}
-
-.visible {
-  transform: translateY(0);
-}
-
-.hidden {
-  transform: translateY(-100%);
 }
 
 .container {
@@ -26,54 +23,27 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
-  position: relative;
 }
 
 .logo {
-  color: var(--primary);
+  color: #00f5ff;
   font-size: 1.5rem;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.3s ease;
-  z-index: 1001;
+  transition: opacity 0.3s ease;
 }
 
 .logo:hover {
   opacity: 0.8;
 }
 
-/* Hamburger Menu Styles */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  z-index: 1001;
-}
-
-.hamburger:focus {
-  outline: none;
-}
-
-.line {
-  width: 30px;
-  height: 3px;
-  background: white;
-  transition: 0.3s ease;
-}
-
-/* Navigation Links */
 .links {
   display: flex;
   gap: 2rem;
 }
 
-.link {
-  color: var(--text-light);
+.navLink {
+  color: #e0e0e0;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -81,82 +51,103 @@
   padding: 0.5rem 0;
 }
 
-.link:hover {
-  color: var(--primary);
+.navLink:hover {
+  color: #00f5ff;
 }
 
-.link::after {
+.navLink::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--primary);
+  background: #00f5ff;
   transition: width 0.3s ease;
 }
 
-.link:hover::after,
-.active::after {
+.navLink:hover::after,
+.navLink.active::after {
   width: 100%;
 }
 
-.active {
-  color: var(--primary);
+.navLink.active {
+  color: #00f5ff;
 }
 
-/* Responsive Styles */
+.collaborators {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  background: #9d4edd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.userAvatar.online {
+  box-shadow: 0 0 0 2px #2ecc71;
+}
+
+.userAvatar.online::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: #2ecc71;
+  border-radius: 50%;
+  border: 2px solid #1a1a2e;
+}
+
+.userName {
+  font-size: 0.9rem;
+}
+
+.logoutButton {
+  margin-left: 1rem;
+  padding: 0.25rem 0.75rem;
+  background: transparent;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logoutButton:hover {
+  background: rgba(231, 76, 60, 0.1);
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-
   .links {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--card-bg);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    z-index: 1000;
-    pointer-events: none;
-  }
-
-  .links.show {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .container {
-    padding: 1rem;
+    gap: 1rem;
   }
   
-  .logo {
-    font-size: 1.3rem;
+  .userName {
+    display: none;
+  }
+  
+  .logoutButton {
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
   }
 }
-
-/* Login page specific styles */
-.navbar.loginNav {
-  background: transparent;
-  backdrop-filter: none;
-  border-bottom: none;
-}
-
-.navbar.loginNav .container {
-  justify-content: center;
-}
-
-.navbar.loginNav .hamburger,
-.navbar.loginNav .links {
-  display: none !important;
-}/* Remove the forced mobile styles for all screens */
-/* @media (min-width: 1px) rule removed */

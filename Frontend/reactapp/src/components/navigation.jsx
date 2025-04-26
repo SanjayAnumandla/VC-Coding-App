@@ -1,102 +1,111 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from '../styles/navigation.module.css';
 
 const Navigation = () => {
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const navRef = useRef(null);
-  const isLoginPage = location.pathname === '/login';
+  const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState(null);
 
-  // Hide/show on scroll (skip on login page)
+  // Scroll effect
   useEffect(() => {
-    if (isLoginPage) return;
-    
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-      setPrevScrollPos(currentScrollPos);
-      
-      if (isMenuOpen) {
-        setIsMenuOpen(false);
-      }
+      setIsScrolled(window.scrollY > 10);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos, isMenuOpen, isLoginPage]);
+  }, []);
 
-  // Close menu when clicking outside (skip on login page)
+  // Mock user authentication status
   useEffect(() => {
-    if (isLoginPage) return;
-    
-    const handleClickOutside = (event) => {
-      if (isMenuOpen && navRef.current && !navRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isMenuOpen, isLoginPage]);
-
-  // Disable scroll when menu is open (skip on login page)
-  useEffect(() => {
-    if (isLoginPage) return;
-    
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'visible';
+    // Replace with actual auth check
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      setUser({
+        name: 'You',
+        avatar: 'YO',
+        isOnline: true
+      });
     }
-    
-    return () => {
-      document.body.style.overflow = 'visible';
-    };
-  }, [isMenuOpen, isLoginPage]);
+  }, [location]);
+
+  const handleLogout = () => {
+    // Replace with actual logout logic
+    localStorage.removeItem('authToken');
+    setUser(null);
+    navigate('/login');
+  };
+
+  const isActive = (path) => location.pathname === path;
+  const isDashboard = location.pathname.startsWith('/dashboard');
+
+  // Return null early for login page after all hooks
+  if (location.pathname === '/login') {
+    return null;
+  }
 
   return (
-    <nav 
-      className={`${styles.navbar} 
-        ${visible && !isLoginPage ? styles.visible : styles.hidden}
-        ${isLoginPage ? styles.loginNav : ''}
-      `}
-      ref={navRef}
-    >
+    <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''} ${isDashboard ? styles.dashboardNav : ''}`}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
           CodeCollab
         </Link>
         
-        {/* Only show hamburger and links if not on login page */}
-        {!isLoginPage && (
-          <>
-            {!isMenuOpen && (
-              <button 
-                className={styles.hamburger}
-                onClick={() => setIsMenuOpen(true)}
-                aria-label="Open menu"
+        <div className={styles.links}>
+          {!user ? (
+            <>
+              <Link 
+                to="/" 
+                className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
               >
-                <span className={styles.line}></span>
-                <span className={styles.line}></span>
-                <span className={styles.line}></span>
-              </button>
-            )}
-            
-            <div className={`${styles.links} ${isMenuOpen ? styles.show : ''}`}>
-              <Link to="/" className={`${styles.link} ${location.pathname === '/' ? styles.active : ''}`}>
                 Home
               </Link>
-              <Link to="/login" className={`${styles.link} ${location.pathname === '/login' ? styles.active : ''}`}>
+              <Link 
+                to="/login" 
+                className={`${styles.navLink} ${isActive('/login') ? styles.active : ''}`}
+              >
                 Login
               </Link>
-              <Link to="/dashboard" className={`${styles.link} ${location.pathname === '/dashboard' ? styles.active : ''}`}>
+            </>
+          ) : (
+            <>
+              {!isDashboard && (
+                <Link 
+                  to="/" 
+                  className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
+                >
+                  Home
+                </Link>
+              )}
+              <Link 
+                to="/dashboard" 
+                className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}
+              >
                 Dashboard
               </Link>
+              <Link 
+                to="/realtime" 
+                className={`${styles.navLink} ${isActive('/realtime') ? styles.active : ''}`}
+              >
+                Code Editor
+              </Link>
+            </>
+          )}
+        </div>
+        
+        {user && (
+          <div className={styles.userSection}>
+            <div className={styles.userBadge}>
+              <span className={`${styles.userAvatar} ${user.isOnline ? styles.online : ''}`}>
+                {user.avatar}
+              </span>
+              <span className={styles.userName}>{user.name}</span>
+              <button onClick={handleLogout} className={styles.logoutButton}>
+                Sign Out
+              </button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </nav>

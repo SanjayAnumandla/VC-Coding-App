@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@monaco-editor/react": "^4.4.6",
     "@reduxjs/toolkit": "1.9.7",
     "@tanstack/react-query": "4.29.25",
     "@testing-library/dom": "^10.4.0",
@@ -18,12 +19,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-  "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject",
-  "prepare": "husky install"
-},
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
+  },
+  "browser": {
+    "process": false
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -43,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.26.3",
     "@tailwindcss/forms": "^0.5.10",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "autoprefixer": "^10.4.21",
@@ -57,7 +62,6 @@
       "pre-commit": "lint-staged"
     }
   },
-
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
